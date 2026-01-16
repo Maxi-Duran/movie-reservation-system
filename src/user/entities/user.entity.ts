@@ -4,8 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
-
+import { Reservation } from 'src/reservations/entities/reservation.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -29,4 +30,6 @@ export class User {
   createdAt: string;
   @UpdateDateColumn({ type: 'timestamp' })
   UpdateAt: string;
+  @OneToMany(() => Reservation, (reservation) => reservation.user)
+  reservations: Reservation[];
 }
