@@ -4,6 +4,7 @@ import { UpdateSeatDto } from './dto/update-seat.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Seat } from './entities/seat.entity';
 import { Repository } from 'typeorm';
+import { NotFoundException } from '@nestjs/common';
 @Injectable()
 export class SeatsService {
   constructor(
@@ -28,5 +29,28 @@ export class SeatsService {
 
   remove(id: number) {
     return this.seatRepository.delete(id);
+  }
+  async findSeatsByRoomId(idRoom: number) {
+    return await this.seatRepository.find({
+      where: { idRoom: idRoom },
+    });
+  }
+
+  async changeStatus(id: number) {
+    console.log('idseat', id);
+    const seat = await this.seatRepository.findOneBy({ id });
+    console.log('Seat', seat);
+    if (!seat) {
+      throw new NotFoundException(`Asiento con ID ${id} no encontrado`);
+    }
+
+    const newStatus = !seat.enabled;
+
+    await this.seatRepository.update(id, { enabled: newStatus });
+
+    return {
+      message: `Estado del asiento ${id} cambiado a ${newStatus}`,
+      enabled: newStatus,
+    };
   }
 }

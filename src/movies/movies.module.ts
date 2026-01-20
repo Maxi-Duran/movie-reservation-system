@@ -4,8 +4,10 @@ import { MoviesController } from './movies.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Movie } from './entities/movie.entity';
 
+import { SchedulesModule } from 'src/schedules/schedules.module';
+
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie])],
+  imports: [TypeOrmModule.forFeature([Movie]), SchedulesModule],
   controllers: [MoviesController],
   providers: [MoviesService],
 })

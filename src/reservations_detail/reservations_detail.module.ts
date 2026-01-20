@@ -8,5 +8,6 @@ import { ReservationsDetail } from './entities/reservations_detail.entity';
   imports: [TypeOrmModule.forFeature([ReservationsDetail])],
   controllers: [ReservationsDetailController],
   providers: [ReservationsDetailService],
+  exports: [ReservationsDetailService],
 })
 export class ReservationsDetailModule {}

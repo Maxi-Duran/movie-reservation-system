@@ -18,6 +18,8 @@ export class Seat {
   @Column()
   number: number;
   @Column()
+  enabled: boolean;
+  @Column()
   idRoom: number;
 
   @ManyToOne(() => Room, (room) => room.seat)

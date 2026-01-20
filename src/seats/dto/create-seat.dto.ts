@@ -1,4 +1,10 @@
-import { IsInt, IsNumber, IsPositive, isNumber } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNumber,
+  IsPositive,
+  isNumber,
+} from 'class-validator';
 
 export class CreateSeatDto {
   @IsInt()
@@ -10,4 +16,6 @@ export class CreateSeatDto {
 
   @IsNumber()
   number: number;
+  @IsBoolean()
+  enabled: boolean;
 }

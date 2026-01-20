@@ -1,4 +1,4 @@
-import { IsInt, IsPositive, IsNumber } from 'class-validator';
+import { IsInt, IsPositive, IsNumber, IsDate } from 'class-validator';
 
 export class CreateScheduleDto {
   @IsInt()
@@ -7,7 +7,8 @@ export class CreateScheduleDto {
   @IsInt()
   @IsPositive()
   idRoom: number;
-
+  @IsDate()
+  DateTime: Date;
   @IsNumber()
   price: number;
 }

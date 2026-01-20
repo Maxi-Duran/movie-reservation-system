@@ -1,4 +1,4 @@
-import { IsInt, IsPositive } from 'class-validator';
+import { isInt, IsInt, IsPositive } from 'class-validator';
 
 export class CreateReservationDto {
   @IsInt()
@@ -6,5 +6,9 @@ export class CreateReservationDto {
   idUser: number;
   @IsInt()
   @IsPositive()
-  idSchedules: number;
+  idSchedule: number;
+
+  @IsInt()
+  @IsPositive()
+  idSeat: number;
 }

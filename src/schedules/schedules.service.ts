@@ -29,4 +29,10 @@ export class SchedulesService {
   remove(id: number) {
     return this.scheduleRepository.delete(id);
   }
+  async findByMovieId(idMovie: number) {
+    return await this.scheduleRepository.find({
+      where: { idMovie: idMovie },
+      order: { dateTime: 'ASC' },
+    });
+  }
 }
