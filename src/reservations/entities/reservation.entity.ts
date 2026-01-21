@@ -13,7 +13,10 @@ import { Schedule } from 'src/schedules/entities/schedule.entity';
 export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
-
+  @Column({ type: 'timestamp', nullable: true })
+  expiresAt: Date;
+  @Column({ default: 'PENDING' })
+  status: string;
   @Column()
   idUser: number;
   @Column()

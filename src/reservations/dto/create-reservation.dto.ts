@@ -7,7 +7,6 @@ export class CreateReservationDto {
   @IsInt()
   @IsPositive()
   idSchedule: number;
-
   @IsInt()
   @IsPositive()
   idSeat: number;

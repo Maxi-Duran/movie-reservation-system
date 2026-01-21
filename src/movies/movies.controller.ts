@@ -13,6 +13,9 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SchedulesService } from 'src/schedules/schedules.service';
+import { Role } from 'src/auth/rol.enum';
+import { Roles } from 'src/auth/roles.decorador';
+import { RolesGuard } from 'src/auth/rol.guard';
 @Controller('movies')
 export class MoviesController {
   constructor(
@@ -26,20 +29,25 @@ export class MoviesController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   findAll() {
     return this.moviesService.findAll();
   }
 
   @Get(':id')
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(+id);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.moviesService.update(+id, updateMovieDto);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.moviesService.remove(+id);

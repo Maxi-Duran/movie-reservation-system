@@ -32,4 +32,9 @@ export class ReservationsDetailService {
   remove(id: number) {
     return this.reservationsDetailRepository.delete(id);
   }
+  findSeat(idSeat: number) {
+    return this.reservationsDetailRepository.exists({
+      where: { idSeat: idSeat },
+    });
+  }
 }

@@ -14,9 +14,10 @@ import { Room } from './rooms/entities/room.entity';
 import { Reservation } from './reservations/entities/reservation.entity';
 import { ReservationsDetail } from './reservations_detail/entities/reservations_detail.entity';
 import { Seat } from './seats/entities/seat.entity';
-
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

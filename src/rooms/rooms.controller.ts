@@ -13,39 +13,53 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SeatsService } from 'src/seats/seats.service';
+import { Roles } from 'src/auth/roles.decorador';
+import { Role } from 'src/auth/rol.enum';
+import { RolesGuard } from 'src/auth/rol.guard';
 @Controller('rooms')
 export class RoomsController {
   constructor(
     private readonly roomsService: RoomsService,
     private readonly seatsService: SeatsService,
   ) {}
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Post()
   create(@Body() createRoomDto: CreateRoomDto) {
     return this.roomsService.create(createRoomDto);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Get()
   findAll() {
     return this.roomsService.findAll();
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.roomsService.findOne(+id);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.update(+id, updateRoomDto);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roomsService.remove(+id);
   }
+  @UseGuards(AuthGuard)
   @Get(':id/seats')
   getSeatsByRoom(@Param('id') id: string) {
     return this.seatsService.findSeatsByRoomId(+id);
+  }
+  @UseGuards(AuthGuard)
+  @Get(':id/seats/enabled')
+  getSeatsByRoomEnabled(@Param('id') id: string) {
+    return this.seatsService.findSeatsByRoomIdEnabled(+id);
   }
 }

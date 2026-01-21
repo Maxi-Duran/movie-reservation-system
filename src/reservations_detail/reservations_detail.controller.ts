@@ -12,17 +12,22 @@ import { CreateReservationsDetailDto } from './dto/create-reservations_detail.dt
 import { UpdateReservationsDetailDto } from './dto/update-reservations_detail.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles.decorador';
+import { Role } from 'src/auth/rol.enum';
+import { RolesGuard } from 'src/auth/rol.guard';
 @Controller('reservations-detail')
 export class ReservationsDetailController {
   constructor(
     private readonly reservationsDetailService: ReservationsDetailService,
   ) {}
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Post()
   create(@Body() createReservationsDetailDto: CreateReservationsDetailDto) {
     return this.reservationsDetailService.create(createReservationsDetailDto);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Get()
   findAll() {
     return this.reservationsDetailService.findAll();
@@ -32,7 +37,8 @@ export class ReservationsDetailController {
   findOne(@Param('id') id: string) {
     return this.reservationsDetailService.findOne(+id);
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -43,7 +49,8 @@ export class ReservationsDetailController {
       updateReservationsDetailDto,
     );
   }
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.reservationsDetailService.remove(+id);

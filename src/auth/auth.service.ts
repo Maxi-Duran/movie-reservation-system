@@ -33,7 +33,7 @@ export class AuthService {
       if (!isMatch) {
         throw new UnauthorizedException('Credenciales inválidas');
       }
-      const payload = { sub: user.id, name: user.name };
+      const payload = { sub: user.id, name: user.name, role: user.role };
       return {
         message: 'Login exitoso',
         status: 201,

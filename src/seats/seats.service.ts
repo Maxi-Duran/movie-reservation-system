@@ -35,6 +35,11 @@ export class SeatsService {
       where: { idRoom: idRoom },
     });
   }
+  async findSeatsByRoomIdEnabled(idRoom: number) {
+    return await this.seatRepository.find({
+      where: { idRoom: idRoom, enabled: true },
+    });
+  }
 
   async changeStatus(id: number) {
     console.log('idseat', id);

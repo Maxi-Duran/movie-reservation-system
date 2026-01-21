@@ -17,7 +17,13 @@ export class ReservationsDetail {
   @Column()
   idSeat: number;
 
-  @ManyToOne(() => Reservation, (reservation) => reservation.reservationsDetail)
+  @ManyToOne(
+    () => Reservation,
+    (reservation) => reservation.reservationsDetail,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ name: 'idReservation' })
   reservation: Reservation;
 }
