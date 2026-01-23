@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  #base de datos
+  db:
+    image: postgres:15-alpine #descarga de imagen
+    container_name: postgres_db #nombre del contenedor
+    restart: always #si docker se apaga, se reinicia solo
+    environment: #configuracion de la base de datos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: myapp_dev
+    ports:
+      - '5432:5432'
+    volumes: #con un volumen evitamos que los datos se borren al apagar el contenedor
+      - postgres_data:/var/lib/postgresql/data
+
+  api: #api nestjs
+    build: . #busca el archivo dockerfile
+    container_name: nestjs_cine_api
+    ports:
+      - '3000:3000'
+    environment: #estas variables las leera mediante process.env
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: myapp_dev
+    depends_on:
+      - db #se inicia la base de datos antes que la api.
+
+volumes:
+  postgres_data:

@@ -15,16 +15,18 @@ import { Reservation } from './reservations/entities/reservation.entity';
 import { ReservationsDetail } from './reservations_detail/entities/reservations_detail.entity';
 import { Seat } from './seats/entities/seat.entity';
 import { ScheduleModule } from '@nestjs/schedule';
+
 @Module({
   imports: [
     ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+
+      host: process.env.DB_HOST || 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'myapp_dev',
+      username: process.env.DB_USERNAME || 'postgres',
+      password: process.env.DB_PASSWORD || 'postgres',
+      database: process.env.DB_DATABASE || 'myapp_dev',
       entities: [User, Movie, Room, Reservation, ReservationsDetail, Seat],
       autoLoadEntities: true,
       synchronize: true,
