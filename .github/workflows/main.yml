@@ -64,5 +64,6 @@ jobs:
                 aws ecr get-login-password --region sa-east-1 | sudo docker login --username AWS --password-stdin 561903439208.dkr.ecr.sa-east-1.amazonaws.com
                 cd /home/ec2-user
                 sudo docker-compose pull
+                sudo docker-compose down || true
                 sudo docker-compose up -d
       
