@@ -15,6 +15,7 @@ import { Reservation } from './reservations/entities/reservation.entity';
 import { ReservationsDetail } from './reservations_detail/entities/reservations_detail.entity';
 import { Seat } from './seats/entities/seat.entity';
 import { ScheduleModule } from '@nestjs/schedule';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     SeatsModule,
     SchedulesModule,
     ReservationsDetailModule,
+    HealthModule,
   ],
 
   controllers: [],
